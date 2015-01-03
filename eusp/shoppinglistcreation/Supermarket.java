@@ -1,4 +1,4 @@
-package shoppinglistcreator;
+package shoppinglistcreation;
 
 import java.util.ArrayList;
 import java.util.List;

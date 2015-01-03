@@ -1,4 +1,4 @@
-package shoppinglistcreator;
+package shoppinglistcreation;
 
 import java.io.File;
 import java.io.FileNotFoundException;

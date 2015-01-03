@@ -1,4 +1,4 @@
-package shoppinglistcreator;
+package shoppinglistcreation;
 
 public class PriceCalculator {
 
