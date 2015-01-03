@@ -1,4 +1,4 @@
-package logic;
+package nfcreader;
 
 public class NFCReader {
 

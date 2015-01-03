@@ -1,4 +1,4 @@
-package logic;
+package shoppinglistcreator;
 
 public class Profiler {
 

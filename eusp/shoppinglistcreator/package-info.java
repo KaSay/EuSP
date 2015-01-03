@@ -5,4 +5,4 @@
  * @author Kasay
  *
  */
-package logic;
+package shoppinglistcreator;
