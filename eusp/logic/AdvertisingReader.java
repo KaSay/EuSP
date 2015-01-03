@@ -49,6 +49,7 @@ public class AdvertisingReader {
 						supermarket.setPricelist(pricelist);
 					
 					}
+					
 					scanner.close();
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
@@ -65,7 +66,9 @@ public class AdvertisingReader {
 		return name;
 	}
 
-	/*public static void main(String[] args) {
+	
+	/* public static void main(String[] args) {
+	 
 		AdvertisingReader add = new AdvertisingReader();
 		
 	 //List<ItemWithPrice> pricelist = new ArrayList<ItemWithPrice>();
@@ -73,7 +76,8 @@ public class AdvertisingReader {
 	 //ItemWithPrice item  = new ItemWithPrice(0.3, "Salami"); 
 		//Supermarket superm = new Supermarket(); 
 		//superm.setPricelist(pricelist);
-	 
+		//System.out.println(supermarket.getPricelist().get(11).getItemName());
+		//System.out.println(supermarket.getPricelist().get(11).getPrice());
 	
 	}*/
 }
