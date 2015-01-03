@@ -1,5 +1,7 @@
 package shoppinglistcreation;
 
+import frontend.ManipulationFrontend;
+
 public class PriceCalculator {
 
 	Profiler profile = new Profiler();
@@ -13,7 +15,6 @@ public class PriceCalculator {
 	String itemsOutOfProfile;
 
 	private void calculateDependingOnProfile() {
-		
 		switch (profile.getStatus()) {
 		case "ProfileEverydayLife":
 			itemsOutOfProfile = profile.ProfileEverydayLife();

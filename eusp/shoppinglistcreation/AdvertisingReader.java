@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class AdvertisingReader {
 
 	String advertisingPath = "./advertising";
-
+	public Supermarket supermarket = new Supermarket();
 	public AdvertisingReader() {
 
 		File advertisingDir = new File(advertisingPath);
@@ -19,7 +19,7 @@ public class AdvertisingReader {
 
 				// setting supermarket name (deletion of .txt ending)
 				String rawName = file.getName();
-				Supermarket supermarket = new Supermarket();
+				
 				supermarket.setName(getName(rawName));
 
 				List<ItemWithPrice> pricelist = new ArrayList<ItemWithPrice>();
