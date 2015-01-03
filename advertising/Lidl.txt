@@ -1,0 +1,12 @@
+Brot;0.99
+Fisch;2.32
+Salzstangen;0.29
+Salami;3.30
+Schinken;2.19
+Ananas;1.66
+Gummibärchen;0.79
+Kuchen;2.49
+Kekse;1.55
+Popcorn;3.42
+Sekt;3.50
+Gurke;0.29
