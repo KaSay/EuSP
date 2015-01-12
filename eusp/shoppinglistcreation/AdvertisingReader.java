@@ -6,12 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import frontend.ManipulationFrontend;
+
 public class AdvertisingReader {
 
 	String advertisingPath = "./advertising";
-	public Supermarket supermarket = new Supermarket();
+	final List<Supermarket> supermarkets = new ArrayList<Supermarket>();
+	
 	public AdvertisingReader() {
 
+		
 		File advertisingDir = new File(advertisingPath);
 		File[] files = advertisingDir.listFiles();
 		for (File file : files) {
@@ -20,6 +24,7 @@ public class AdvertisingReader {
 				// setting supermarket name (deletion of .txt ending)
 				String rawName = file.getName();
 				
+				Supermarket supermarket = new Supermarket();
 				supermarket.setName(getName(rawName));
 
 				List<ItemWithPrice> pricelist = new ArrayList<ItemWithPrice>();
@@ -49,13 +54,16 @@ public class AdvertisingReader {
 						supermarket.setPricelist(pricelist);
 					
 					}
+					supermarkets.add(supermarket);
+					
 					
 					scanner.close();
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-
 			}
+			
+
 		}
 
 	}
@@ -67,17 +75,21 @@ public class AdvertisingReader {
 	}
 
 	
-	/* public static void main(String[] args) {
+public static void main(String[] args) {
 	 
 		AdvertisingReader add = new AdvertisingReader();
+		ManipulationFrontend mani = new ManipulationFrontend(add);
+		mani.createAndShowGUI();
 		
-	 //List<ItemWithPrice> pricelist = new ArrayList<ItemWithPrice>();
-	 //pricelist.add(new ItemWithPrice(0.3, "Salami")); 
-	 //ItemWithPrice item  = new ItemWithPrice(0.3, "Salami"); 
-		//Supermarket superm = new Supermarket(); 
-		//superm.setPricelist(pricelist);
-		//System.out.println(supermarket.getPricelist().get(11).getItemName());
-		//System.out.println(supermarket.getPricelist().get(11).getPrice());
+		
+		
+/*	 List<ItemWithPrice> pricelist = new ArrayList<ItemWithPrice>();
+	 pricelist.add(new ItemWithPrice(0.3, "Salami")); 
+	 ItemWithPrice item  = new ItemWithPrice(0.3, "Salami"); 
+	Supermarket superm = new Supermarket(); 
+	superm.setPricelist(pricelist);
+	System.out.println(superm.getPricelist().get(0).getItemName());
+	System.out.println(superm.getPricelist().get(0).getPrice());*/
 	
-	}*/
+	}
 }

@@ -3,10 +3,13 @@ package frontend;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -18,17 +21,22 @@ import shoppinglistcreation.PriceCalculator;
 import shoppinglistcreation.Profiler;
 import shoppinglistcreation.Supermarket;
 
-public class ManipulationFrontend extends JPanel implements ItemListener{
+public class ManipulationFrontend extends JPanel implements ItemListener, ActionListener{
 
 	JCheckBox sweetProfile;
 	JCheckBox healthyProfile;
 	JCheckBox everydayLifeProfile;
 	JCheckBox partyProfile;
+	JButton exit;
+	JFrame frame = new JFrame();
+	AdvertisingReader add;
+	
 	public Profiler profile = new Profiler();
 	
-	public ManipulationFrontend() {
-		super(new BorderLayout());
+	public ManipulationFrontend(AdvertisingReader add) {
 		
+		super(new BorderLayout());
+		this.add = add;
 		sweetProfile = new JCheckBox();
 		sweetProfile.setSelected(false);
 		sweetProfile.setBounds(30,37,60,30);
@@ -55,12 +63,18 @@ public class ManipulationFrontend extends JPanel implements ItemListener{
 		healthyProfile.addItemListener(this);
 		everydayLifeProfile.addItemListener(this);
 		partyProfile.addItemListener(this);
+		
+		exit = new JButton();
+		exit.setBounds(30,120,40,30);
+		exit.setLabel("Bestätigen");
+		exit.addActionListener(this);
 				
 		JPanel checkPanel = new JPanel(new GridLayout(0, 1));
         checkPanel.add(partyProfile);
         checkPanel.add(healthyProfile);
         checkPanel.add(everydayLifeProfile);
         checkPanel.add(sweetProfile);
+        checkPanel.add(exit);
 
         add(checkPanel, BorderLayout.LINE_START);
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
@@ -68,7 +82,7 @@ public class ManipulationFrontend extends JPanel implements ItemListener{
 	
 
 	public void createAndShowGUI(){
-JFrame frame = new JFrame();
+
 		
 		frame.setLayout(null);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -78,7 +92,7 @@ JFrame frame = new JFrame();
 		supermarket1.setBounds(10, 10, 80, 30);
 		frame.add(supermarket1);
 		
-		JComponent newContentPane = new ManipulationFrontend();
+		JComponent newContentPane = new ManipulationFrontend(add);
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);
         
@@ -92,13 +106,7 @@ JFrame frame = new JFrame();
 		frame.setVisible(true);
 		
 	}
-	 public static void main(String[] args)
-	    {
-		 	ManipulationFrontend frontend = new ManipulationFrontend();
-		 	frontend.createAndShowGUI();
-		 	
-			
-	    }
+
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -113,5 +121,17 @@ JFrame frame = new JFrame();
 			profile.ProfileParty();
 		}
 		
+		
 	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {	
+		frame.setVisible(false);
+		PriceCalculator priceCalc = new PriceCalculator(add,profile);
+		
+	}
+
+
+
 }

@@ -22,7 +22,7 @@ public class UserFrontend extends JFrame {
 	
 	 	AdvertisingReader reader = new AdvertisingReader();
 	 	Profiler profile = new Profiler();
-	 	PriceCalculator priceCalculator = new PriceCalculator();
+	 	//PriceCalculator priceCalculator = new PriceCalculator(reader);
 	 	
 		setResizable(false);
 		setPreferredSize(new Dimension(750, 550));
