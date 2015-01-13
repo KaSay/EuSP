@@ -11,7 +11,7 @@ import frontend.ManipulationFrontend;
 public class AdvertisingReader {
 
 	String advertisingPath = "./advertising";
-	final List<Supermarket> supermarkets = new ArrayList<Supermarket>();
+	public final List<Supermarket> supermarkets = new ArrayList<Supermarket>();
 	
 	public AdvertisingReader() {
 

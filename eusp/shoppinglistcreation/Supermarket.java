@@ -36,4 +36,5 @@ public class Supermarket {
 	public void setOverallPrice(double overallPrice) {
 		this.overallPrice = overallPrice;
 	}
+
 }

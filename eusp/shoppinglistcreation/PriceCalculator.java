@@ -1,6 +1,7 @@
 package shoppinglistcreation;
 
 import frontend.ManipulationFrontend;
+import frontend.UserFrontend;
 
 public class PriceCalculator {
 
@@ -54,8 +55,14 @@ public class PriceCalculator {
 				}
 				
 			}
-			System.out.println(overAllPrice);
+			overAllPrice = Math.round(overAllPrice * 1000) / 1000.0;
+			advertReader.supermarkets.get(j).setOverallPrice(overAllPrice);
+			overAllPrice = 0;
+			
+			
 		}
+		
+		UserFrontend userFrontend = new UserFrontend(advertReader, profile);
 
 	}
 
