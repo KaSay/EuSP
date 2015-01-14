@@ -1,10 +1,10 @@
 <!-- HCI Group: Ubiquitous Computing Assignments -->
 <!-- University of Bamberg, Prof. Dr. Tom Gross, Christoph Beckmann -->
 <!-- Katharina Sandrock, Julia Gratzl, Peter Wunderlich -->
-<!-- Build file for the UbiComp assignment: assignment_03_01 -->
+<!-- Build file for the UbiComp assignment: assignment_05_01 -->
 <!-- ************************************************************ -->
 
-<project name="XMLRPC" default="compile" basedir=".">
+<project name="EuSP" default="compile" basedir=".">
 	<description>
 		"EuSP implementation to read shopping items with XMLRPC"
 	</description>
@@ -45,7 +45,7 @@
 	</target>
 
 	<target name="dist" depends="compile">
-		<jar destfile="${dist}/assignment02_01_EuSP.jar" basedir="${build}">
+		<jar destfile="${dist}/assignment05_01_EuSP.jar" basedir="${build}">
 			<archives>
 				<zips>
 					<fileset dir="lib/" includes="**/*.jar" />
@@ -53,7 +53,7 @@
 			</archives>
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Main-Class" value="de/cmlab/ubicomp/shoppinglistcreation/AdvertisingReader" />
+				<attribute name="Main-Class" value="de/cmlab/ubicomp/shoppinglistcreation/AdvertisingReader"/>
 			</manifest>
 		</jar>
 	</target>
@@ -78,10 +78,7 @@
 			packagenames="de.cmlab.ubicomp.*"
 			sourcepath="src">
 		<link href="http://docs.oracle.com/javase/7/docs/api/"/>
-		<classpath>
-		<pathelement path="${lib}/xmlrpc-1.1"/>
-		</classpath>
-		
+
 		</javadoc>
 	</target>
 
