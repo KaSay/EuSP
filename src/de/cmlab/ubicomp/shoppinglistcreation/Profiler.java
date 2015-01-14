@@ -9,7 +9,7 @@ public class Profiler {
 	}
 	
 	public String ProfileParty(){
-		String partyProfile = new String("Gummib‰rchen;Popcorn;Sekt;Salzstangen"); 
+		String partyProfile = new String("Gummib√§rchen;Popcorn;Sekt;Salzstangen"); 
 		this.status = "ProfileParty";
 		return partyProfile;
 	}
@@ -27,7 +27,7 @@ public class Profiler {
 	}
 	
 	public String ProfileSweet(){
-		String sweetProfile = new String("Gummib‰rchen;Kuchen;Kekse");
+		String sweetProfile = new String("Gummib√§rchen;Kuchen;Kekse");
 		this.status = "ProfileSweet";
 		return sweetProfile;
 	}

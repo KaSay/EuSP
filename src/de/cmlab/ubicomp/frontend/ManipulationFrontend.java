@@ -43,18 +43,18 @@ public class ManipulationFrontend extends JPanel implements ActionListener {
 		this.add = add;
 
 		
-		profileList.add("Profil: s¸ﬂ");
+		profileList.add("Profil: s√º√ü");
 		profileList.add("Profil: gesund");
 		profileList.add("Profil: Party");
-		profileList.add("Profil: allt‰glich");
+		profileList.add("Profil: alltglich");
 		profileList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
 	
 				if (profileList.getSelectedItem().equals("Profil: gesund")) {
 					profile.ProfileHealthy();
-				} else if (profileList.getSelectedItem().equals("Profil: s¸ﬂ")) {
+				} else if (profileList.getSelectedItem().equals("Profil: s√º√ü")) {
 					profile.ProfileSweet();
-				} else if (profileList.getSelectedItem().equals("Profil: allt‰glich")) {
+				} else if (profileList.getSelectedItem().equals("Profil: allt√§glich")) {
 					profile.ProfileEverydayLife();
 				} else if (profileList.getSelectedItem().equals("Profil: Party")) {
 					profile.ProfileParty();
@@ -68,7 +68,7 @@ public class ManipulationFrontend extends JPanel implements ActionListener {
 
 		exit = new JButton();
 		exit.setBounds(30, 120, 40, 30);
-		exit.setLabel("Best‰tigen");
+		exit.setLabel("Best√§tigen");
 		exit.setFont(new Font("Arial", 1, 16));
 		exit.setBackground(Color.lightGray);
 		exit.addActionListener(this);
