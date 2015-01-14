@@ -24,9 +24,14 @@ import de.cmlab.ubicomp.shoppinglistcreation.Supermarket;
 
 /**
  * @version 1.0
- * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock UserFrontend
- *         presents the prices of the different supermarket (one can be chosen
- *         by clicking on it)
+ * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
+ * 
+ *  
+ */
+
+/**
+ * UserFrontend / presents the prices of the different supermarket (one can be
+ *         chosen by clicking on it)
  */
 
 public class UserFrontend extends JFrame implements MouseListener {
@@ -42,41 +47,50 @@ public class UserFrontend extends JFrame implements MouseListener {
 
 	/**
 	 * constructor sets some configurations of the frame
+	 * 
 	 * @param advertReader
 	 * @param profile
 	 */
 	public UserFrontend(AdvertisingReader advertReader, Profiler profile) {
-		
-		myProfile = profile; //holding the profile
-		myAdvertReader = advertReader; //holding the supermarket
-		
-		setLayout(null); //layout is set to null - coordinates are self-defined
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //sets default close operation on default
 
-		// sets first panel on the frame  showing the overview over the supermarkets and their total prices
+		myProfile = profile; // holding the profile
+		myAdvertReader = advertReader; // holding the supermarket
+
+		setLayout(null); // layout is set to null - coordinates are self-defined
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // sets default close
+															// operation on
+															// default
+
+		// sets first panel on the frame showing the overview over the
+		// supermarkets and their total prices
 		setContentPane(shoppingOverviewPanel());
 
 		setResizable(false); // window not resizable
-		setPreferredSize(new Dimension(500, 550)); //sets size of the window
-		setLocation(0, 0); //sets location of the window
-		pack(); 
-		setBackground(Color.white); 
+		setPreferredSize(new Dimension(500, 550)); // sets size of the window
+		setLocation(0, 0); // sets location of the window
+		pack();
+		setBackground(Color.white);
 		setLocationRelativeTo(null);
-		setVisible(true); //makes the frame visible 
+		setVisible(true); // makes the frame visible
 	}
+
 	/**
-	 * method responsible for displaying the first content panel showing an overview over the supermarket and their prices
-	 * @return JComponent - returns the panel so that it can be set on the frame in the constructor 
+	 * method responsible for displaying the first content panel showing an
+	 * overview over the supermarket and their prices
+	 * 
+	 * @return JComponent - returns the panel so that it can be set on the frame
+	 *         in the constructor
 	 */
 	public JComponent shoppingOverviewPanel() {
 
-		//creating the panel und set som general configurations
+		// creating the panel und set som general configurations
 		JPanel shoppingOverview = new JPanel();
 		shoppingOverview.setBounds(0, 0, 500, 550);
 		shoppingOverview.setBackground(Color.white);
 		shoppingOverview.setLayout(null);
 
-		//the panel should show three supermarkets and their prices - now the six label are defined and specified
+		// the panel should show three supermarkets and their prices - now the
+		// six label are defined and specified
 		JLabel price1 = new JLabel(String.valueOf(myAdvertReader.supermarkets
 				.get(0).getOverallPrice()));
 		price1.setBounds(345, 75, 53, 21);
@@ -86,7 +100,10 @@ public class UserFrontend extends JFrame implements MouseListener {
 		iconSupermarket1 = new JLabel(new ImageIcon("advertising/"
 				+ myAdvertReader.supermarkets.get(0).getName() + ".png"));
 		iconSupermarket1.setBounds(80, 25, 130, 156);
-		iconSupermarket1.addMouseListener(this); //supermarket images get an Mouse listener to react on clients click on the picture
+		iconSupermarket1.addMouseListener(this); // supermarket images get an
+													// Mouse listener to react
+													// on clients click on the
+													// picture
 		shoppingOverview.add(iconSupermarket1);
 
 		JLabel price2 = new JLabel(String.valueOf(myAdvertReader.supermarkets
@@ -113,16 +130,18 @@ public class UserFrontend extends JFrame implements MouseListener {
 		iconSupermarket3.addMouseListener(this);
 		shoppingOverview.add(iconSupermarket3);
 
-		shoppingOverview.setVisible(true); //makes the panel visible
-		return shoppingOverview; //returns the panel to the frame
+		shoppingOverview.setVisible(true); // makes the panel visible
+		return shoppingOverview; // returns the panel to the frame
 	}
 
-	//override method for the mouse listener - reacts on clicks onto supermarket images
+	// override method for the mouse listener - reacts on clicks onto
+	// supermarket images
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		getContentPane().setVisible(false); 
-		
-		//sets the supermarket object depending on which supermarket the user clicked
+		getContentPane().setVisible(false);
+
+		// sets the supermarket object depending on which supermarket the user
+		// clicked
 		if (e.getSource().equals(iconSupermarket1)) {
 			supermarket = myAdvertReader.supermarkets.get(0);
 		} else if (e.getSource().equals(iconSupermarket2)) {
@@ -131,7 +150,7 @@ public class UserFrontend extends JFrame implements MouseListener {
 			supermarket = myAdvertReader.supermarkets.get(2);
 		}
 
-		//if a picture is clicked the shoppinglist panel is shown
+		// if a picture is clicked the shoppinglist panel is shown
 		JComponent newContentPane = new ShoppingListPanel(supermarket,
 				myAdvertReader, myProfile);
 		newContentPane.setOpaque(true); // content panes must be opaque

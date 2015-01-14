@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -57,7 +55,7 @@ public class XMLRPCServer {
 	 * 
 	 * @param item
 	 *            item read by the nfc reader
-	 * @return
+	 * @return the string
 	 */
 	public String newItem(String item) {
 		boolean success = false;

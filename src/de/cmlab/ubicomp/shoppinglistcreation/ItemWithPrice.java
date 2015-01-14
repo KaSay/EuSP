@@ -3,6 +3,8 @@ package de.cmlab.ubicomp.shoppinglistcreation;
 /**
  * @version 1.0
  * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
+ */
+/**
  * class ItemWithPrice models the combination betwenn price of an item and the name of an item
  */
 public class ItemWithPrice {

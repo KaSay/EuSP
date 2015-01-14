@@ -6,6 +6,8 @@ import de.cmlab.ubicomp.frontend.UserFrontend;
 /**
  * @version 1.0
  * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
+ */
+/**
  * calculates the price depending on the chosen profile
  */
 
@@ -18,8 +20,8 @@ public class PriceCalculator {
 
 	/**
 	 * calls calculation method
-	 * @param add
-	 * @param profile2
+	 * @param add information about supermarkets
+	 * @param profile2 profiles
 	 */
 	public PriceCalculator(AdvertisingReader add, Profiler profile2) {
 		advertReader = add;

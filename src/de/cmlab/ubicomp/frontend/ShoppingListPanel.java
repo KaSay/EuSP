@@ -15,9 +15,10 @@ import de.cmlab.ubicomp.shoppinglistcreation.Supermarket;
 /**
  * @version 1.0
  * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock ShoppingListPanel
- *         show the chosen supermarket with its price list
  */
-
+/**
+ * show the chosen supermarket with its price list
+ */
 public class ShoppingListPanel extends JPanel {
 
 	public Supermarket mySupermarket;

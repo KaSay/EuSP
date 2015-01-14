@@ -28,9 +28,10 @@ import de.cmlab.ubicomp.shoppinglistcreation.Supermarket;
 /**
  * @version 1.0
  * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
+ */
+/**
  * ManipulationFrontend displays possible profiles - user can choose one
  */
-
 public class ManipulationFrontend extends JPanel implements ActionListener {
 
 	JButton exit; //clicked by the user after decision
