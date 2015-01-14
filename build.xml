@@ -1,0 +1,119 @@
+<!-- HCI Group: Ubiquitous Computing Assignments -->
+<!-- University of Bamberg, Prof. Dr. Tom Gross, Christoph Beckmann -->
+<!-- Katharina Sandrock, Julia Gratzl, Peter Wunderlich -->
+<!-- Build file for the UbiComp assignment: assignment_03_01 -->
+<!-- ************************************************************ -->
+
+<project name="XMLRPC" default="compile" basedir=".">
+	<description>
+		"Using XML-RPC for Client Server communication on sen-sation"
+	</description>
+
+	<property name="src" value="./src"/>
+	<property name="build" value="./build"/>
+	<property name="dist" location="./dist"/>
+	<property name="lib" location="./lib"/>
+	<property name="doc" location="./doc"/>
+	<property name="src.files" value="**/*.java"/>
+	<property name="jar.files" value="**/*.jar"/>
+	
+	<target name="prepare">
+		<tstamp/>
+		<mkdir dir="${build}"/>
+        <mkdir dir="${build}/lib"/>
+	</target>
+
+	<target name="compile" depends="prepare">
+		<javac srcdir="${src}" destdir="${build}" includes="${src.files}" includeantruntime="false">
+			<classpath>
+				<pathelement path="${lib}/xmlrpc-1.1.jar"/>
+			</classpath>
+		</javac>
+		<copy flatten="true" todir="${build}/lib" includeemptydirs="false">
+			<fileset dir="${lib}">
+				<include name="${jar.files}"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="run" depends="compile">
+		<java classname="de.cmlab.ubicomp.shoppinglistcreation.AdvertisingReader">
+			<classpath>
+				<pathelement path="${build}/lib/xmlrpc-1.1.jar;${build}"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="dist" depends="compile">
+		<jar destfile="${dist}/assignment02_01_Server.jar" basedir="${build}">
+			<archives>
+				<zips>
+					<fileset dir="lib/" includes="**/*.jar" />
+				</zips>
+			</archives>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Main-Class" value="de/cmlab/ubicomp/client/Server" />
+			</manifest>
+		</jar>
+		<jar destfile="${dist}/assignment02_01_Client.jar" basedir="${build}">
+			<archives>
+				<zips>
+					<fileset dir="lib/" includes="**/*.jar" />
+				</zips>
+			</archives>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Main-Class" value="de/cmlab/ubicomp/client/Client" />
+			</manifest>
+		</jar>
+		<jar destfile="${dist}/assignment02_01_Sensor.jar" basedir="${build}">
+			<archives>
+				<zips>
+					<fileset dir="lib/" includes="**/*.jar" />
+				</zips>
+			</archives>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Main-Class" value="de/cmlab/ubicomp/sensor/InterfaceKit" />
+			</manifest>
+		</jar>			
+	</target>
+	
+	<target name="clean" description="clean up">
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+	</target>
+
+	<target name="javadoc">
+		<javadoc
+			destdir="${doc}"
+			access="public"
+			source="1.7"
+			use="true"
+			notree="false"
+			nonavbar="false"
+			noindex="false"
+			splitindex="true"
+			author="true"
+			version="true"
+			packagenames="de.cmlab.ubicomp.*"
+			sourcepath="src">
+		<link href="http://docs.oracle.com/javase/7/docs/api/"/>
+		<classpath>
+		<pathelement path="${lib}/sens-ation_1.73.jar"/>
+		</classpath>
+		
+		</javadoc>
+	</target>
+
+	<target name="upload">
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+		<delete dir="${doc}"/>
+		<delete dir="./bin/"/>
+	</target>
+
+	<target name="all" depends="clean,prepare,compile,run"/>
+
+</project>
