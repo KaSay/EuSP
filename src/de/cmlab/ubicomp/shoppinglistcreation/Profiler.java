@@ -2,7 +2,7 @@ package de.cmlab.ubicomp.shoppinglistcreation;
 
 public class Profiler {
 
-	String status; 
+	String status=""; 
 	
 	public Profiler() {
 		

@@ -46,7 +46,7 @@ public class ManipulationFrontend extends JPanel implements ActionListener {
 		profileList.add("Profil: süß");
 		profileList.add("Profil: gesund");
 		profileList.add("Profil: Party");
-		profileList.add("Profil: alltglich");
+		profileList.add("Profil: alltäglich");
 		profileList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
 	
@@ -97,9 +97,13 @@ public class ManipulationFrontend extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		if (profile.getStatus().equals("")){
+			System.out.println("no profile selected");
+			createAndShowGUI();
+		}
 		PriceCalculator priceCalc = new PriceCalculator(add, profile);
-		
+		frame.dispose();
+		frame.setVisible(false);
 
 	}
 

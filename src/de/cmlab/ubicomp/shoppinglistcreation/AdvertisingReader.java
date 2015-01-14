@@ -20,13 +20,11 @@ public class AdvertisingReader {
 		File[] files = advertisingDir.listFiles();
 		for (File file : files) {
 			if (file.getName().endsWith(".txt")) {
-
-				// setting supermarket name (deletion of .txt ending)
-				String rawName = file.getName();
 				
+				String rawName = file.getName();
 				Supermarket supermarket = new Supermarket();
 				supermarket.setName(getName(rawName));
-
+				
 				List<ItemWithPrice> pricelist = new ArrayList<ItemWithPrice>();
 				Scanner scanner;
 				try {
@@ -34,7 +32,7 @@ public class AdvertisingReader {
 
 					while (scanner.hasNextLine()) {
 						String line = (String) scanner.nextLine();
-
+						
 						String item, price;
 						String[] splitLine;
 						if (line.contains(";")) {
@@ -51,6 +49,7 @@ public class AdvertisingReader {
 						double price2 = Double.parseDouble(price);
 
 						pricelist.add(new ItemWithPrice(price2, item));
+						
 						supermarket.setPricelist(pricelist);
 					
 					}
@@ -80,8 +79,9 @@ public static void main(String[] args) {
 		AdvertisingReader add = new AdvertisingReader();
 		ManipulationFrontend mani = new ManipulationFrontend(add);
 		mani.createAndShowGUI();
-		
-		
+		while(true){
+			
+		}
 		
 /*	 List<ItemWithPrice> pricelist = new ArrayList<ItemWithPrice>();
 	 pricelist.add(new ItemWithPrice(0.3, "Salami")); 

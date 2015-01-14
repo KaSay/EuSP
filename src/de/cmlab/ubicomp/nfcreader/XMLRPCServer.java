@@ -30,7 +30,7 @@ public class XMLRPCServer {
 			System.out.println("Start to search for NFCReader.");
 			DatagramClient client = new DatagramClient();
 			client.searchForNFCReader();
-
+	
 		} catch(Exception ex) {
 			System.err.println("XMLRPCServer: " + ex);
 		}
@@ -41,7 +41,7 @@ public class XMLRPCServer {
 			
 			//Delivered package needs to be registered by program. 
 			//Do something and don't forget to overwrite the success variable. :)
-		
+			
 			if(success == true) {
 				
 				
@@ -54,6 +54,7 @@ public class XMLRPCServer {
 					myShoppingListPanel.add(itemChecked);
 				}else if (item.contains("Schinken")){
 					myShoppingListPanel.add(itemChecked);
+					itemChecked.setBounds(350, 250, 40, 40);
 				}else if (item.contains("Gurke")){
 					itemChecked.setBounds(350, 290, 40, 40);
 					myShoppingListPanel.add(itemChecked);

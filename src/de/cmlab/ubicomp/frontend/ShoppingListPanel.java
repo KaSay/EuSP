@@ -24,7 +24,7 @@ public class ShoppingListPanel extends JPanel {
 		myAdvertReader = AdvertReader;
 		myProfile = profile;
 		
-		XMLRPCServer server = new XMLRPCServer(this);
+		
 
 		setBounds(0, 0, 500, 550);
 		setBackground(Color.white);
@@ -105,6 +105,7 @@ public class ShoppingListPanel extends JPanel {
 		totalPrice.setFont(new Font("Arial", 1, 16));
 		add(totalPrice);
 		setVisible(true);
+		XMLRPCServer server = new XMLRPCServer(this);
 	}
 
 	private void itemChecked(String string) {

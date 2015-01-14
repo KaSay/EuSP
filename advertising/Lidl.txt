@@ -4,7 +4,7 @@ Salzstangen;0.29
 Salami;3.30
 Schinken;2.19
 Ananas;1.66
-Gummib‰rchen;0.79
+Gummib√§rchen;0.79
 Kuchen;2.49
 Kekse;1.55
 Popcorn;3.42
