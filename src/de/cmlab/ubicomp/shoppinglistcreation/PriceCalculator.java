@@ -6,7 +6,7 @@ import de.cmlab.ubicomp.frontend.UserFrontend;
 /**
  * @version 1.0
  * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
- *
+ * calculates the price depending on the chosen profile
  */
 
 public class PriceCalculator {
@@ -14,18 +14,26 @@ public class PriceCalculator {
 	public Profiler profile;
 	Supermarket supermarket;
 	public AdvertisingReader advertReader;
+	String itemsOutOfProfile;
 
+	/**
+	 * calls calculation method
+	 * @param add
+	 * @param profile2
+	 */
 	public PriceCalculator(AdvertisingReader add, Profiler profile2) {
 		advertReader = add;
 		profile = profile2;
 		calculateDependingOnProfile();
 	}
 
-	String itemsOutOfProfile;
-
+	
+/**
+ * calculates total pruce depending on profile
+ */
 	private void calculateDependingOnProfile() {
 
-
+		//sets itemsOutofProfile variable depending on variable chosen
 		switch (profile.getStatus()) {
 		case "ProfileEverydayLife":
 			itemsOutOfProfile = profile.ProfileEverydayLife();
@@ -43,10 +51,10 @@ public class PriceCalculator {
 			System.out.println("Wrong profile name");
 		}
 
-		double overAllPrice = 0.0;
+		double overAllPrice = 0.0; //variable for overall price
 
 		
-		
+		//loop goes through all supermarkets and calculates the price depending on the profile
 		for (int j = 0; j < advertReader.supermarkets.size(); j++) {
 			supermarket = advertReader.supermarkets.get(j);
 
@@ -55,20 +63,20 @@ public class PriceCalculator {
 						.get(i).getItemName())) {
 
 					overAllPrice = overAllPrice
-							+ supermarket.getPricelist().get(i).getPrice();
+							+ supermarket.getPricelist().get(i).getPrice(); //adding up the prices of the single items
 					
 					
 				}
 				
 			}
-			overAllPrice = Math.round(overAllPrice * 1000) / 1000.0;
-			advertReader.supermarkets.get(j).setOverallPrice(overAllPrice);
+			overAllPrice = Math.round(overAllPrice * 1000) / 1000.0; //round to 2 decimal places
+			advertReader.supermarkets.get(j).setOverallPrice(overAllPrice); //saves overall price
 			overAllPrice = 0;
 			
 			
 		}
 		
-		UserFrontend userFrontend = new UserFrontend(advertReader, profile);
+		UserFrontend userFrontend = new UserFrontend(advertReader, profile); //calls user frontend
 
 	}
 
