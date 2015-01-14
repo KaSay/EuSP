@@ -77,7 +77,7 @@ public class XMLRPCServer {
 		        DatagramSocket socket = new DatagramSocket();
 		        // send IP, Port information
 		        byte[] buf = new byte[256];
-		        InetAddress address = InetAddress.getByName("192.168.2.255");
+		        InetAddress address = InetAddress.getByName("10.1.20.90");
 		        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 4455);
 		        try {
 		        	socket.send(packet);
