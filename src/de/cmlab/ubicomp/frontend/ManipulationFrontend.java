@@ -28,31 +28,33 @@ import de.cmlab.ubicomp.shoppinglistcreation.Supermarket;
 /**
  * @version 1.0
  * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
- *
+ * ManipulationFrontend displays possible profiles - user can choose one
  */
 
 public class ManipulationFrontend extends JPanel implements ActionListener {
 
-	JCheckBox sweetProfile;
-	JCheckBox healthyProfile;
-	JCheckBox everydayLifeProfile;
-	JCheckBox partyProfile;
-	JButton exit;
-	JFrame frame = new JFrame();
+	JButton exit; //clicked by the user after decision
+	JFrame frame = new JFrame(); //the window
 	AdvertisingReader add;
-	List profileList = new List();
+	List profileList = new List(); //list of the profiles
 
 	public Profiler profile = new Profiler();
 
+	/**
+	 * ManipulationFrontend displays possible profiles and lets the user choose one
+	 * @param add
+	 */
 	public ManipulationFrontend(AdvertisingReader add) {
 
 		this.add = add;
 
-		
+		// creation of the list
 		profileList.add("Profil: süß");
 		profileList.add("Profil: gesund");
 		profileList.add("Profil: Party");
 		profileList.add("Profil: alltäglich");
+		
+		//adding item listener to the list to check which profile was selected by the user
 		profileList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
 	
@@ -67,31 +69,40 @@ public class ManipulationFrontend extends JPanel implements ActionListener {
 				}
 			}
 		});
+		
+		//setting some general properties to the list (location, size, font, color)
 		profileList.setBounds(0, 0, 150, 100);
 		profileList.setFont(new Font("Arial",1,16));
 		profileList.setBackground(Color.lightGray);
 		add(profileList);
 
+		//the button for confirming choice - general properties (size, location, font, color)
 		exit = new JButton();
 		exit.setBounds(30, 120, 40, 30);
 		exit.setLabel("Bestätigen");
 		exit.setFont(new Font("Arial", 1, 16));
 		exit.setBackground(Color.lightGray);
-		exit.addActionListener(this);
+		exit.addActionListener(this); //add action listener to notice if button was clicked
 		add(exit);
 
 		setBackground(Color.white);
 	}
 
+	/**
+	 * creates main frame of the GUI and adds the panel of the constructor to the frame
+	 */
 	public void createAndShowGUI() {
 
+		//sets some general properties to the window
 		frame.setLayout(null);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+		//adds the constructor panel onto the window
 		JComponent newContentPane = new ManipulationFrontend(add);
 		newContentPane.setOpaque(true); // content panes must be opaque
 		frame.setContentPane(newContentPane);
 
+		//sets some mor general properties to the window
 		frame.setResizable(false);
 		frame.setPreferredSize(new Dimension(300, 130));
 		frame.setLocation(50, 50);
@@ -101,12 +112,19 @@ public class ManipulationFrontend extends JPanel implements ActionListener {
 
 	}
 
+	/**
+	 * method is called if button is clicked 
+	 * method calls PriceCalculator if button is clicked
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		//if no profile was chosen - GUI is shown again
 		if (profile.getStatus().equals("")){
 			System.out.println("no profile selected");
 			createAndShowGUI();
 		}
+		// calls PriceCalculator with selected profile and information about the supermarkets
 		PriceCalculator priceCalc = new PriceCalculator(add, profile);
 		frame.dispose();
 		frame.setVisible(false);

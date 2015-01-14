@@ -14,8 +14,8 @@ import de.cmlab.ubicomp.shoppinglistcreation.Supermarket;
 
 /**
  * @version 1.0
- * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
- *
+ * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock ShoppingListPanel
+ *         show the chosen supermarket with its price list
  */
 
 public class ShoppingListPanel extends JPanel {
@@ -24,23 +24,30 @@ public class ShoppingListPanel extends JPanel {
 	public AdvertisingReader myAdvertReader;
 	public Profiler myProfile;
 
+	/**
+	 * panel showing the chosen supermarket and its price list
+	 * @param supermarket holds the chosen supermarket
+	 * @param AdvertReader has information about the supermarket
+	 * @param profile chosen profile
+	 */
 	public ShoppingListPanel(Supermarket supermarket,
 			AdvertisingReader AdvertReader, Profiler profile) {
 		mySupermarket = supermarket;
 		myAdvertReader = AdvertReader;
 		myProfile = profile;
-		
-		
 
+		// some general properties for the pnanel (location, size, color, layout)
 		setBounds(0, 0, 500, 550);
 		setBackground(Color.white);
 		setLayout(null);
 
+		//label showing the chosen supermarket again in the titel
 		JLabel iconSupermarket2 = new JLabel(new ImageIcon("advertising/"
 				+ mySupermarket.getName() + ".png"));
 		iconSupermarket2.setBounds(5, 0, 300, 156);
 		add(iconSupermarket2);
 
+		//label displaying the word "Einkaufsliste" on top of the frame as titel
 		JLabel titel = new JLabel("Einkaufsliste");
 		titel.setBounds(320, 50, 300, 50);
 		titel.setFont(new Font("Arial", 1, 16));
@@ -48,6 +55,7 @@ public class ShoppingListPanel extends JPanel {
 
 		String itemsOutOfProfile = null;
 
+		//sets the status of the profile to a variable
 		switch (profile.getStatus()) {
 		case "ProfileEverydayLife":
 			itemsOutOfProfile = profile.ProfileEverydayLife();
@@ -65,12 +73,15 @@ public class ShoppingListPanel extends JPanel {
 			System.out.println("Wrong profile name");
 		}
 
-		int distanceItems = 0;
-		int distancePrice = 0;
+		int distanceItems = 0; //for keeping distances between the items 
+		int distancePrice = 0; //for keeping distances between the pricess
+		
+		//Loop selecting the supermarket and goes through its price list to show prices and items on the frame
 		for (int j = 0; j < myAdvertReader.supermarkets.size(); j++) {
 			if (myAdvertReader.supermarkets.get(j).equals(mySupermarket)) {
 
 				for (int i = 0; i < supermarket.getPricelist().size(); i++) {
+					
 					if (itemsOutOfProfile.contains(supermarket.getPricelist()
 							.get(i).getItemName())) {
 						JLabel item = new JLabel(supermarket.getPricelist()
@@ -85,7 +96,7 @@ public class ShoppingListPanel extends JPanel {
 						price.setFont(new Font("Arial", 1, 16));
 						add(price);
 
-						distanceItems = distanceItems + 40;
+						distanceItems = distanceItems + 40; //increased to display the distances
 						distancePrice = distancePrice + 40;
 
 					}
@@ -95,42 +106,25 @@ public class ShoppingListPanel extends JPanel {
 			}
 
 		}
-		
-		
-		JLabel itemChecked = new JLabel(new ImageIcon("advertising/Haken.png"));
-		
-		
+
+		//displays the overall price at the end of the page
+		//label for displaying the text (Gesamtpreis)
 		JLabel totalPriceLabel = new JLabel("Gesamtpreis:");
-		totalPriceLabel.setBounds(38,457,265,46);
+		totalPriceLabel.setBounds(38, 457, 265, 46);
 		totalPriceLabel.setFont(new Font("Arial", 1, 16));
 		add(totalPriceLabel);
-		
-		
-		JLabel totalPrice = new JLabel(String.valueOf(supermarket.getOverallPrice()));
-		totalPrice.setBounds(300,457,265,46);
+
+		//label for displaying the actual amount
+		JLabel totalPrice = new JLabel(String.valueOf(supermarket
+				.getOverallPrice()));
+		totalPrice.setBounds(300, 457, 265, 46);
 		totalPrice.setFont(new Font("Arial", 1, 16));
 		add(totalPrice);
-		setVisible(true);
-		XMLRPCServer server = new XMLRPCServer(this);
-	}
-
-	private void itemChecked(String string) {
-
-		JLabel itemChecked = new JLabel(new ImageIcon("advertising/Haken.png"));
-		if (string.contains("Brot")) {
-			itemChecked.setBounds(350, 170, 40, 40);
-			add(itemChecked);
-		} else if (string.contains("Salami")){
-			itemChecked.setBounds(350, 210, 40, 40);
-			add(itemChecked);
-		}else if (string.contains("Schinken")){
-			itemChecked.setBounds(350, 250, 40, 40);
-			add(itemChecked);
-		}else if (string.contains("Gurke")){
-			itemChecked.setBounds(350, 290, 40, 40);
-			add(itemChecked);
-		}
 		
+		setVisible(true); //sets the panel visible
+		XMLRPCServer server = new XMLRPCServer(this); //starts the XMLRPCserver 
 	}
+
+
 
 }
