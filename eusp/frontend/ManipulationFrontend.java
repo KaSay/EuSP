@@ -1,8 +1,12 @@
 package frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Choice;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -21,7 +25,7 @@ import shoppinglistcreation.PriceCalculator;
 import shoppinglistcreation.Profiler;
 import shoppinglistcreation.Supermarket;
 
-public class ManipulationFrontend extends JPanel implements ItemListener, ActionListener{
+public class ManipulationFrontend extends JPanel implements ActionListener {
 
 	JCheckBox sweetProfile;
 	JCheckBox healthyProfile;
@@ -30,108 +34,73 @@ public class ManipulationFrontend extends JPanel implements ItemListener, Action
 	JButton exit;
 	JFrame frame = new JFrame();
 	AdvertisingReader add;
-	
+	List profileList = new List();
+
 	public Profiler profile = new Profiler();
-	
+
 	public ManipulationFrontend(AdvertisingReader add) {
-		
-		super(new BorderLayout());
+
 		this.add = add;
-		sweetProfile = new JCheckBox();
-		sweetProfile.setSelected(false);
-		sweetProfile.setBounds(30,37,60,30);
-		sweetProfile.setLabel("sweet");
-		
-	 	
-		healthyProfile = new JCheckBox();
-		healthyProfile.setSelected(false);
-		healthyProfile.setBounds(30,60,80,30);
-		healthyProfile.setLabel("healthy");
-		
-		everydayLifeProfile = new JCheckBox();
-		everydayLifeProfile.setSelected(false);
-		everydayLifeProfile.setBounds(30,90,120,30);
-		everydayLifeProfile.setLabel("everyday life");
-		
-		
-		partyProfile = new JCheckBox();
-		partyProfile.setSelected(false);
-		partyProfile.setBounds(30,120,60,30);
-		partyProfile.setLabel("party");
-		
-		sweetProfile.addItemListener(this);
-		healthyProfile.addItemListener(this);
-		everydayLifeProfile.addItemListener(this);
-		partyProfile.addItemListener(this);
-		
-		exit = new JButton();
-		exit.setBounds(30,120,40,30);
-		exit.setLabel("Bestätigen");
-		exit.addActionListener(this);
-				
-		JPanel checkPanel = new JPanel(new GridLayout(0, 1));
-        checkPanel.add(partyProfile);
-        checkPanel.add(healthyProfile);
-        checkPanel.add(everydayLifeProfile);
-        checkPanel.add(sweetProfile);
-        checkPanel.add(exit);
 
-        add(checkPanel, BorderLayout.LINE_START);
-        setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-	}
+		
+		profileList.add("Profil: süß");
+		profileList.add("Profil: gesund");
+		profileList.add("Profil: Party");
+		profileList.add("Profil: alltäglich");
+		profileList.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent ie) {
 	
+				if (profileList.getSelectedItem().equals("Profil: gesund")) {
+					profile.ProfileHealthy();
+				} else if (profileList.getSelectedItem().equals("Profil: süß")) {
+					profile.ProfileSweet();
+				} else if (profileList.getSelectedItem().equals("Profil: alltäglich")) {
+					profile.ProfileEverydayLife();
+				} else if (profileList.getSelectedItem().equals("Profil: Party")) {
+					profile.ProfileParty();
+				}
+			}
+		});
+		profileList.setBounds(0, 0, 150, 100);
+		profileList.setFont(new Font("Arial",1,16));
+		profileList.setBackground(Color.lightGray);
+		add(profileList);
 
-	public void createAndShowGUI(){
+		exit = new JButton();
+		exit.setBounds(30, 120, 40, 30);
+		exit.setLabel("Bestätigen");
+		exit.setFont(new Font("Arial", 1, 16));
+		exit.setBackground(Color.lightGray);
+		exit.addActionListener(this);
+		add(exit);
 
-		
+		setBackground(Color.white);
+	}
+
+	public void createAndShowGUI() {
+
 		frame.setLayout(null);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		
-		JLabel supermarket1 = new JLabel("Profiles");
-		supermarket1.setBounds(10, 10, 80, 30);
-		frame.add(supermarket1);
-		
+
 		JComponent newContentPane = new ManipulationFrontend(add);
-        newContentPane.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(newContentPane);
-        
-		
-		
+		newContentPane.setOpaque(true); // content panes must be opaque
+		frame.setContentPane(newContentPane);
+
 		frame.setResizable(false);
-		frame.setPreferredSize(new Dimension(300, 600));
+		frame.setPreferredSize(new Dimension(300, 130));
 		frame.setLocation(50, 50);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
-	}
 
+	}
 
 	@Override
-	public void itemStateChanged(ItemEvent e) {
-		Object source = e.getItemSelectable();
-		if (source == healthyProfile){
-			profile.ProfileHealthy();
-		} else if (source == sweetProfile){
-			profile.ProfileSweet();
-		} else if (source == everydayLifeProfile){
-			profile.ProfileEverydayLife();
-		} else if (source == partyProfile ){
-			profile.ProfileParty();
-		}
+	public void actionPerformed(ActionEvent e) {
 		
+		PriceCalculator priceCalc = new PriceCalculator(add, profile);
 		
+
 	}
-
-
-	@Override
-	public void actionPerformed(ActionEvent e) {	
-		frame.setVisible(false);
-		PriceCalculator priceCalc = new PriceCalculator(add,profile);
-		
-	}
-
-
 
 }

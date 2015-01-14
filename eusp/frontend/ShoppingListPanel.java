@@ -87,6 +87,16 @@ public class ShoppingListPanel extends JPanel {
 
 		}
 		
+		
+		JLabel itemChecked = new JLabel(new ImageIcon("advertising/Haken.png"));
+		
+		itemChecked("Gurke");
+		
+		
+
+		
+		
+		
 		JLabel totalPriceLabel = new JLabel("Gesamtpreis:");
 		totalPriceLabel.setBounds(38,457,265,46);
 		totalPriceLabel.setFont(new Font("Arial", 1, 16));
@@ -98,6 +108,25 @@ public class ShoppingListPanel extends JPanel {
 		totalPrice.setFont(new Font("Arial", 1, 16));
 		add(totalPrice);
 		setVisible(true);
+	}
+
+	private void itemChecked(String string) {
+
+		JLabel itemChecked = new JLabel(new ImageIcon("advertising/Haken.png"));
+		if (string.contains("Brot")) {
+			itemChecked.setBounds(350, 170, 40, 40);
+			add(itemChecked);
+		} else if (string.contains("Salami")){
+			itemChecked.setBounds(350, 210, 40, 40);
+			add(itemChecked);
+		}else if (string.contains("Schinken")){
+			itemChecked.setBounds(350, 250, 40, 40);
+			add(itemChecked);
+		}else if (string.contains("Gurke")){
+			itemChecked.setBounds(350, 290, 40, 40);
+			add(itemChecked);
+		}
+		
 	}
 
 }
