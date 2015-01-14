@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import nfcreader.XMLRPCServer;
 import shoppinglistcreation.AdvertisingReader;
 import shoppinglistcreation.Profiler;
 import shoppinglistcreation.Supermarket;
@@ -22,6 +23,8 @@ public class ShoppingListPanel extends JPanel {
 		mySupermarket = supermarket;
 		myAdvertReader = AdvertReader;
 		myProfile = profile;
+		
+		XMLRPCServer server = new XMLRPCServer(this);
 
 		setBounds(0, 0, 500, 550);
 		setBackground(Color.white);
@@ -89,12 +92,6 @@ public class ShoppingListPanel extends JPanel {
 		
 		
 		JLabel itemChecked = new JLabel(new ImageIcon("advertising/Haken.png"));
-		
-		itemChecked("Gurke");
-		
-		
-
-		
 		
 		
 		JLabel totalPriceLabel = new JLabel("Gesamtpreis:");

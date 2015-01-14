@@ -49,7 +49,7 @@ public class PriceCalculator {
 						.get(i).getItemName())) {
 
 					overAllPrice = overAllPrice
-							+ supermarket.getPricelist().get(i).getPrice(); //TODO: einspeichern und overallPrice 0 setzen
+							+ supermarket.getPricelist().get(i).getPrice();
 					
 					
 				}

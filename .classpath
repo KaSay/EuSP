@@ -2,5 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="eusp"/>
+	<classpathentry exported="true" kind="lib" path="sens-ation_1.73.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
