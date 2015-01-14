@@ -8,6 +8,11 @@ import java.util.Scanner;
 
 import de.cmlab.ubicomp.frontend.ManipulationFrontend;
 
+/**
+ * @version 1.0
+ * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
+ *
+ */
 public class AdvertisingReader {
 
 	String advertisingPath = "./advertising";

@@ -13,6 +13,12 @@ import org.apache.xmlrpc.WebServer;
 
 import de.cmlab.ubicomp.frontend.ShoppingListPanel;
 
+/**
+ * @version 1.0
+ * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
+ *
+ */
+
 public class XMLRPCServer {
 	
 	public ShoppingListPanel myShoppingListPanel;
@@ -46,18 +52,22 @@ public class XMLRPCServer {
 				
 				
 				JLabel itemChecked = new JLabel(new ImageIcon("advertising/Haken.png"));
-				if (item.contains("Brot")) {
+				if (item.contains("Gummibärchen")) {
 					itemChecked.setBounds(350, 170, 40, 40);
 					myShoppingListPanel.add(itemChecked);
-				} else if (item.contains("Salami")){
+					System.out.println("Gummibärchen");
+				} else if (item.contains("Kuchen")){
 					itemChecked.setBounds(350, 210, 40, 40);
 					myShoppingListPanel.add(itemChecked);
-				}else if (item.contains("Schinken")){
+					System.out.println("Kuchen");
+				}else if (item.contains("Kekse")){
 					myShoppingListPanel.add(itemChecked);
 					itemChecked.setBounds(350, 250, 40, 40);
-				}else if (item.contains("Gurke")){
+					System.out.println("Kekse");
+				}else if (item.contains("XXXX")){
 					itemChecked.setBounds(350, 290, 40, 40);
 					myShoppingListPanel.add(itemChecked);
+					System.out.println("XXXX");
 				}
 				
 				return "OK";
@@ -77,7 +87,7 @@ public class XMLRPCServer {
 		        DatagramSocket socket = new DatagramSocket();
 		        // send IP, Port information
 		        byte[] buf = new byte[256];
-		        InetAddress address = InetAddress.getByName("10.1.20.90");
+		        InetAddress address = InetAddress.getByName("10.1.1.59");
 		        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 4455);
 		        try {
 		        	socket.send(packet);

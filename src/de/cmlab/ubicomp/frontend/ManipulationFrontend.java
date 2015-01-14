@@ -25,6 +25,12 @@ import de.cmlab.ubicomp.shoppinglistcreation.PriceCalculator;
 import de.cmlab.ubicomp.shoppinglistcreation.Profiler;
 import de.cmlab.ubicomp.shoppinglistcreation.Supermarket;
 
+/**
+ * @version 1.0
+ * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
+ *
+ */
+
 public class ManipulationFrontend extends JPanel implements ActionListener {
 
 	JCheckBox sweetProfile;

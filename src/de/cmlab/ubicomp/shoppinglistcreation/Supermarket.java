@@ -3,6 +3,11 @@ package de.cmlab.ubicomp.shoppinglistcreation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @version 1.0
+ * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
+ *
+ */
 public class Supermarket {
 
 	String name;

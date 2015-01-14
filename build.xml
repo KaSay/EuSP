@@ -6,7 +6,7 @@
 
 <project name="XMLRPC" default="compile" basedir=".">
 	<description>
-		"Using XML-RPC for Client Server communication on sen-sation"
+		"EuSP implementation to read shopping items with XMLRPC"
 	</description>
 
 	<property name="src" value="./src"/>
@@ -45,7 +45,7 @@
 	</target>
 
 	<target name="dist" depends="compile">
-		<jar destfile="${dist}/assignment02_01_Server.jar" basedir="${build}">
+		<jar destfile="${dist}/assignment02_01_EuSP.jar" basedir="${build}">
 			<archives>
 				<zips>
 					<fileset dir="lib/" includes="**/*.jar" />
@@ -53,31 +53,9 @@
 			</archives>
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Main-Class" value="de/cmlab/ubicomp/client/Server" />
+				<attribute name="Main-Class" value="de/cmlab/ubicomp/shoppinglistcreation/AdvertisingReader" />
 			</manifest>
 		</jar>
-		<jar destfile="${dist}/assignment02_01_Client.jar" basedir="${build}">
-			<archives>
-				<zips>
-					<fileset dir="lib/" includes="**/*.jar" />
-				</zips>
-			</archives>
-			<manifest>
-				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Main-Class" value="de/cmlab/ubicomp/client/Client" />
-			</manifest>
-		</jar>
-		<jar destfile="${dist}/assignment02_01_Sensor.jar" basedir="${build}">
-			<archives>
-				<zips>
-					<fileset dir="lib/" includes="**/*.jar" />
-				</zips>
-			</archives>
-			<manifest>
-				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Main-Class" value="de/cmlab/ubicomp/sensor/InterfaceKit" />
-			</manifest>
-		</jar>			
 	</target>
 	
 	<target name="clean" description="clean up">
@@ -101,7 +79,7 @@
 			sourcepath="src">
 		<link href="http://docs.oracle.com/javase/7/docs/api/"/>
 		<classpath>
-		<pathelement path="${lib}/sens-ation_1.73.jar"/>
+		<pathelement path="${lib}/xmlrpc-1.1"/>
 		</classpath>
 		
 		</javadoc>

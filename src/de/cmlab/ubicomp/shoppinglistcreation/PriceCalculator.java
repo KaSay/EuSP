@@ -3,6 +3,12 @@ package de.cmlab.ubicomp.shoppinglistcreation;
 import de.cmlab.ubicomp.frontend.ManipulationFrontend;
 import de.cmlab.ubicomp.frontend.UserFrontend;
 
+/**
+ * @version 1.0
+ * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
+ *
+ */
+
 public class PriceCalculator {
 
 	public Profiler profile;

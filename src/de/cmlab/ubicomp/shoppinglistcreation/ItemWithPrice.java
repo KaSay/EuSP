@@ -1,5 +1,10 @@
 package de.cmlab.ubicomp.shoppinglistcreation;
 
+/**
+ * @version 1.0
+ * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
+ *
+ */
 public class ItemWithPrice {
 
 	double price;
