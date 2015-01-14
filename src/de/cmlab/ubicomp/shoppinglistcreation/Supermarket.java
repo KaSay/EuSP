@@ -1,4 +1,4 @@
-package shoppinglistcreation;
+package de.cmlab.ubicomp.shoppinglistcreation;
 
 import java.util.ArrayList;
 import java.util.List;

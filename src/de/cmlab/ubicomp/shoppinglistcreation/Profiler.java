@@ -1,4 +1,4 @@
-package shoppinglistcreation;
+package de.cmlab.ubicomp.shoppinglistcreation;
 
 public class Profiler {
 

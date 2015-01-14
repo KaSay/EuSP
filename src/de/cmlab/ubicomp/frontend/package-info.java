@@ -5,4 +5,4 @@
  * @author Kasay
  *
  */
-package shoppinglistcreation;
+package de.cmlab.ubicomp.frontend;

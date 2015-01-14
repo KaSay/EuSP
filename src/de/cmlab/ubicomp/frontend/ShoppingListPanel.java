@@ -1,4 +1,4 @@
-package frontend;
+package de.cmlab.ubicomp.frontend;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,10 +7,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import nfcreader.XMLRPCServer;
-import shoppinglistcreation.AdvertisingReader;
-import shoppinglistcreation.Profiler;
-import shoppinglistcreation.Supermarket;
+import de.cmlab.ubicomp.nfcreader.XMLRPCServer;
+import de.cmlab.ubicomp.shoppinglistcreation.AdvertisingReader;
+import de.cmlab.ubicomp.shoppinglistcreation.Profiler;
+import de.cmlab.ubicomp.shoppinglistcreation.Supermarket;
 
 public class ShoppingListPanel extends JPanel {
 

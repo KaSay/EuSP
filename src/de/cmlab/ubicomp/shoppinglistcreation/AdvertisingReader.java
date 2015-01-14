@@ -1,4 +1,4 @@
-package shoppinglistcreation;
+package de.cmlab.ubicomp.shoppinglistcreation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import frontend.ManipulationFrontend;
+import de.cmlab.ubicomp.frontend.ManipulationFrontend;
 
 public class AdvertisingReader {
 

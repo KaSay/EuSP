@@ -1,4 +1,4 @@
-package nfcreader;
+package de.cmlab.ubicomp.nfcreader;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 
 import org.apache.xmlrpc.WebServer;
 
-import frontend.ShoppingListPanel;
+import de.cmlab.ubicomp.frontend.ShoppingListPanel;
 
 public class XMLRPCServer {
 	

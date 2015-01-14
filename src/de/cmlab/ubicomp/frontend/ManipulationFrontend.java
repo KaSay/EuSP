@@ -1,4 +1,4 @@
-package frontend;
+package de.cmlab.ubicomp.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Choice;
@@ -20,10 +20,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import shoppinglistcreation.AdvertisingReader;
-import shoppinglistcreation.PriceCalculator;
-import shoppinglistcreation.Profiler;
-import shoppinglistcreation.Supermarket;
+import de.cmlab.ubicomp.shoppinglistcreation.AdvertisingReader;
+import de.cmlab.ubicomp.shoppinglistcreation.PriceCalculator;
+import de.cmlab.ubicomp.shoppinglistcreation.Profiler;
+import de.cmlab.ubicomp.shoppinglistcreation.Supermarket;
 
 public class ManipulationFrontend extends JPanel implements ActionListener {
 

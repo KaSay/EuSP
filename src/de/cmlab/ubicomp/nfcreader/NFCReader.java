@@ -1,4 +1,4 @@
-package nfcreader;
+package de.cmlab.ubicomp.nfcreader;
 
 public class NFCReader {
 

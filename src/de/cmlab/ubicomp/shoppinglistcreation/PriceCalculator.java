@@ -1,7 +1,7 @@
-package shoppinglistcreation;
+package de.cmlab.ubicomp.shoppinglistcreation;
 
-import frontend.ManipulationFrontend;
-import frontend.UserFrontend;
+import de.cmlab.ubicomp.frontend.ManipulationFrontend;
+import de.cmlab.ubicomp.frontend.UserFrontend;
 
 public class PriceCalculator {
 

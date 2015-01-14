@@ -5,4 +5,4 @@
  * @author Kasay
  *
  */
-package nfcreader;
+package de.cmlab.ubicomp.nfcreader;

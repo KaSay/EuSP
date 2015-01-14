@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author Kasay
- *
- */
-package frontend;
