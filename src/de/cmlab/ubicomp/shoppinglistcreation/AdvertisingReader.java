@@ -10,7 +10,7 @@ import de.cmlab.ubicomp.frontend.ManipulationFrontend;
 
 /**
  * reads the different commercials and saves the information
- * @version 1.0
+ * @version 2.0
  * @author Julia Gratzl, Peter Wunderlich, Katharina Sandrock
  *
  */
