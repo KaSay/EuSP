@@ -2,6 +2,8 @@ package de.cmlab.ubicomp.frontend;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -9,7 +11,9 @@ import javax.swing.JPanel;
 
 import de.cmlab.ubicomp.nfcreader.XMLRPCServer;
 import de.cmlab.ubicomp.shoppinglistcreation.AdvertisingReader;
+import de.cmlab.ubicomp.shoppinglistcreation.ItemWithPrice;
 import de.cmlab.ubicomp.shoppinglistcreation.Profiler;
+import de.cmlab.ubicomp.shoppinglistcreation.ShoppingList;
 import de.cmlab.ubicomp.shoppinglistcreation.Supermarket;
 
 /**
@@ -24,6 +28,8 @@ public class ShoppingListPanel extends JPanel {
 	public Supermarket mySupermarket;
 	public AdvertisingReader myAdvertReader;
 	public Profiler myProfile;
+	public ShoppingList shoppingList = new ShoppingList();
+	public JLabel totalPrice;
 
 	/**
 	 * panel showing the chosen supermarket and its price list
@@ -37,7 +43,7 @@ public class ShoppingListPanel extends JPanel {
 		myAdvertReader = AdvertReader;
 		myProfile = profile;
 
-		// some general properties for the pnanel (location, size, color, layout)
+		// some general properties for the panel (location, size, color, layout)
 		setBounds(0, 0, 500, 550);
 		setBackground(Color.white);
 		setLayout(null);
@@ -75,7 +81,9 @@ public class ShoppingListPanel extends JPanel {
 		}
 
 		int distanceItems = 0; //for keeping distances between the items 
-		int distancePrice = 0; //for keeping distances between the pricess
+		int distancePrice = 0; //for keeping distances between the prices
+		int cntItems = 0;
+		List<ItemWithPrice> pricelist = new ArrayList<ItemWithPrice>();
 		
 		//Loop selecting the supermarket and goes through its price list to show prices and items on the frame
 		for (int j = 0; j < myAdvertReader.supermarkets.size(); j++) {
@@ -85,12 +93,18 @@ public class ShoppingListPanel extends JPanel {
 					
 					if (itemsOutOfProfile.contains(supermarket.getPricelist()
 							.get(i).getItemName())) {
+						
 						JLabel item = new JLabel(supermarket.getPricelist()
 								.get(i).getItemName());
 						item.setBounds(38, 187 + distanceItems, 150, 23);
 						item.setFont(new Font("Arial", 1, 16));
 						add(item);
-
+						
+						//save variable to create a current shopping list
+						pricelist.add(new ItemWithPrice(supermarket.getPricelist()
+								.get(i).getPrice(),supermarket.getPricelist()
+								.get(i).getItemName()));
+						
 						JLabel price = new JLabel(String.valueOf(supermarket
 								.getPricelist().get(i).getPrice()));
 						price.setBounds(300, 187 + distancePrice, 150, 23);
@@ -100,6 +114,7 @@ public class ShoppingListPanel extends JPanel {
 						distanceItems = distanceItems + 40; //increased to display the distances
 						distancePrice = distancePrice + 40;
 
+						cntItems++;
 					}
 
 				}
@@ -107,6 +122,9 @@ public class ShoppingListPanel extends JPanel {
 			}
 
 		}
+		
+		shoppingList.setShoppingList(pricelist);
+		cntItems = 0;
 
 		//displays the overall price at the end of the page
 		//label for displaying the text (Gesamtpreis)
@@ -115,15 +133,21 @@ public class ShoppingListPanel extends JPanel {
 		totalPriceLabel.setFont(new Font("Arial", 1, 16));
 		add(totalPriceLabel);
 
+
+		
 		//label for displaying the actual amount
-		JLabel totalPrice = new JLabel(String.valueOf(supermarket
+		totalPrice = new JLabel(String.valueOf(supermarket
 				.getOverallPrice()));
 		totalPrice.setBounds(300, 457, 265, 46);
 		totalPrice.setFont(new Font("Arial", 1, 16));
 		add(totalPrice);
 		
+		//save variable to create a current shopping list with overall price
+		shoppingList.setCurrentOverallPrice(supermarket
+				.getOverallPrice());
+		
 		setVisible(true); //sets the panel visible
-		XMLRPCServer server = new XMLRPCServer(this); //starts the XMLRPCserver 
+		XMLRPCServer server = new XMLRPCServer(this, shoppingList); //starts the XMLRPCserver 
 	}
 
 

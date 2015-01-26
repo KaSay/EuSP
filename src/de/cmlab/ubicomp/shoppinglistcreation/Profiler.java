@@ -49,7 +49,7 @@ public class Profiler {
 	 * @return String containing all items belonging to the profile
 	 */
 	public String ProfileSweet(){
-		String sweetProfile = new String("Gummibärchen;Kuchen;Kekse");
+		String sweetProfile = new String("Gummibärchen;Kuchen;Kekse;Popcorn");
 		this.status = "ProfileSweet";
 		return sweetProfile;
 	}
