@@ -42,7 +42,6 @@ public class ManipulationFrontend extends JPanel implements ActionListener {
 	public Profiler profile = new Profiler();
 
 	/**
-	 * this is a test
 	 * ManipulationFrontend displays possible profiles and lets the user choose one
 	 * @param add
 	 */
