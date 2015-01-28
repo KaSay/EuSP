@@ -32,6 +32,8 @@ public class XMLRPCServer {
 	public ShoppingList myShoppingList;
 	int port = 4455;
 	boolean[] check = new boolean[7]; // default 0 draußen - rausgelöscht 1
+	boolean[] checkIfNew = new boolean[7];
+	boolean[] alreadyCalled = new boolean[7];
 	WebServer server;
 
 	/**
@@ -46,10 +48,11 @@ public class XMLRPCServer {
 
 		myShoppingListPanel = shoppingListPanel;
 		myShoppingList = shoppingList;
-		boolean[] check = { false , false , false, false, false, false, false };
-		
-		
-
+		boolean[] check = { false, false, false, false, false, false, false };
+		boolean[] checkIfNew = { false, false, false, false, false, false,
+				false };
+		boolean[] alreadyCalled = { false, false, false, false, false, false,
+				false };
 
 		try {
 			// start the server and waits for answers of the nfc reader
@@ -62,7 +65,7 @@ public class XMLRPCServer {
 			System.out.println("Start to search for NFCReader.");
 			DatagramClient client = new DatagramClient(this);
 			client.searchForNFCReader();
-		
+
 		} catch (Exception ex) {
 			System.err.println("XMLRPCServer: " + ex);
 		}
@@ -98,15 +101,31 @@ public class XMLRPCServer {
 
 			boolean itemInList = false;
 			int itemPlaceInList = 0;
+double newPrice = 0;
+			if (item.contains("checkout")) {
+				for (int i = 0; i < myShoppingList.getShoppingList().size(); i++) {
+					
+					if (check[i] == false & checkIfNew[i] == false & alreadyCalled[i] == false) {
+						newPrice = myShoppingList
+								.getCurrentOverallPrice()
+								- myShoppingList.getShoppingList().get(i)
+										.getPrice();
+						newPrice = Math.round(newPrice * 1000) / 1000.0;
+						myShoppingList.setCurrentOverallPrice(newPrice);
+						myShoppingListPanel.totalPrice.setText(String
+								.valueOf(myShoppingList
+										.getCurrentOverallPrice()));
+						
+						
+					}
+				
+					}
+				/*
+				 * try{ server.shutdown(); }catch (Exception ex) {
+				 * System.err.println("XMLRPCServer: " + ex); }
+				 */
+			}
 
-			/*if (item.contains("checkout")) {
-				try{
-				server.shutdown();
-				}catch (Exception ex) {
-					System.err.println("XMLRPCServer: " + ex);
-				}
-			}*/
-			
 			for (int i = 0; i < myShoppingList.getShoppingList().size(); i++) {
 
 				// hook to drawn list
@@ -118,149 +137,15 @@ public class XMLRPCServer {
 					itemPlaceInList = i;
 				}
 			}
+
 			double overAllPrice = 0;
 
-
-			if (itemInList == true) {
-
-				switch (itemPlaceInList) {
-				case 0:
-
-					if (check[itemPlaceInList] == false) {
-						itemChecked.setBounds(350, 170, 40, 40);
-						myShoppingListPanel.add(itemChecked);
-						myShoppingListPanel.setComponentZOrder(itemChecked,2);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket, 0);
-						check[itemPlaceInList] = true;
-					} else if (check[itemPlaceInList] == true) {
-						check[itemPlaceInList] = false;
-						itemOutOfBasket.setBounds(350, 170, 40, 40);
-						myShoppingListPanel.add(itemOutOfBasket);
-						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
-								2);
-					}
-
-					break;
-				case 1:
-
-					if (check[itemPlaceInList] == false) {
-						itemChecked.setBounds(350, 210, 40, 40);
-						myShoppingListPanel.add(itemChecked);
-						myShoppingListPanel.setComponentZOrder(itemChecked,2);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket, 0);
-						check[itemPlaceInList] = true;
-					} else if (check[itemPlaceInList] == true) {
-						check[itemPlaceInList] = false;
-						itemOutOfBasket.setBounds(350, 210, 40, 40);
-						myShoppingListPanel.add(itemOutOfBasket);
-						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
-								2);
-
-					}
-					break;
-				case 2:
-					if (check[itemPlaceInList] == false) {
-						itemChecked.setBounds(350, 250, 40, 40);
-						myShoppingListPanel.add(itemChecked);
-						myShoppingListPanel.setComponentZOrder(itemChecked,2);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket, 0);
-						check[itemPlaceInList] = true;
-
-					} else if (check[itemPlaceInList] == true) {
-						check[itemPlaceInList] = false;
-
-						itemOutOfBasket.setBounds(350, 250, 40, 40);
-						myShoppingListPanel.add(itemOutOfBasket);
-						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
-								2);
-					}
-					break;
-				case 3:
-					if (check[itemPlaceInList] == false) {
-						itemChecked.setBounds(350, 290, 40, 40);
-						myShoppingListPanel.add(itemChecked);
-						myShoppingListPanel.setComponentZOrder(itemChecked,2);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket, 0);
-						check[itemPlaceInList] = true;
-
-					} else if (check[itemPlaceInList] == true) {
-						check[itemPlaceInList] = false;
-						itemOutOfBasket.setBounds(350, 290, 40, 40);
-						myShoppingListPanel.add(itemOutOfBasket);
-						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
-								2);
-						overAllPrice = overAllPrice - myShoppingList.getShoppingList().get(itemPlaceInList)
-								.getPrice();
-
-					}
-					break;
-				case 4:
-					if (check[itemPlaceInList] == false) {
-						itemChecked.setBounds(350, 330, 40, 40);
-						myShoppingListPanel.add(itemChecked);
-						myShoppingListPanel.setComponentZOrder(itemChecked,2);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket, 0);
-						check[itemPlaceInList] = true;
-
-					} else if (check[itemPlaceInList] == true) {
-						check[itemPlaceInList] = false;
-
-						itemOutOfBasket.setBounds(350, 330, 40, 40);
-						myShoppingListPanel.add(itemOutOfBasket);
-						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
-								2);
-					}
-					break;
-				case 5:
-					if (check[itemPlaceInList] == false) {
-						itemChecked.setBounds(350, 370, 40, 40);
-						myShoppingListPanel.add(itemChecked);
-						myShoppingListPanel.setComponentZOrder(itemChecked,2);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket, 0);
-						check[itemPlaceInList] = true;
-					} else if (check[itemPlaceInList] == true) {
-						check[itemPlaceInList] = false;
-						
-						itemOutOfBasket.setBounds(350, 370, 40, 40);
-						myShoppingListPanel.add(itemOutOfBasket);
-						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
-								2);
-					}
-					break;
-				case 6:
-
-					if (check[itemPlaceInList] == false) {
-						itemChecked.setBounds(350, 410, 40, 40);
-						myShoppingListPanel.add(itemChecked);
-						check[itemPlaceInList] = true;
-						myShoppingListPanel.setComponentZOrder(itemChecked,2);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket, 0);
-					} else if (check[itemPlaceInList] == true) {
-						check[itemPlaceInList] = false;
-						itemOutOfBasket.setBounds(350, 410, 40, 40);
-						myShoppingListPanel.add(itemOutOfBasket);
-						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
-								2);
-					}
-					break;
-				}
-
-			}
-
+			JLabel newItemLabelName = new JLabel();
+			JLabel newItemLabelPrice = new JLabel();
 			List<ItemWithPrice> pricelist = new ArrayList<ItemWithPrice>();
-			if (itemInList == false && !(item.contains("checkout"))) {
+			int shoppingListlength = myShoppingList.getShoppingList().size();
 
-				JLabel newItemLabelName = new JLabel();
-				JLabel newItemLabelPrice = new JLabel();
-				int shoppingListlength = myShoppingList.getShoppingList()
-						.size();
+			if (itemInList == false && !(item.contains("checkout"))) {
 
 				// split into item and price
 				String newItem, price;
@@ -281,24 +166,299 @@ public class XMLRPCServer {
 					pricelist.add(new ItemWithPrice(price2, newItem));
 					myShoppingList.setShoppingList(pricelist);
 
-					
-					myShoppingList.setCurrentOverallPrice(myShoppingList
-							.getCurrentOverallPrice() + price2);
-
-					overAllPrice = myShoppingList.getCurrentOverallPrice();
-					overAllPrice = Math.round(overAllPrice * 1000) / 1000.0; // round
-																				// to
-																				// 2
-																				// decimal
-																				// places
-
-					myShoppingListPanel.totalPrice.setText(String
-							.valueOf(overAllPrice));
 				} else {
 					throw new IllegalArgumentException(
 							item
 									+ " contains no space to seperate - seperation failed");
 				}
+			}
+
+			if (itemInList == true) {
+
+				switch (itemPlaceInList) {
+				case 0:
+
+					if (check[itemPlaceInList] == false) {
+						itemChecked.setBounds(350, 170, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 2);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								0);
+						check[itemPlaceInList] = true;
+						if (checkIfNew[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == false) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice();
+						}
+						alreadyCalled[itemPlaceInList] = true;
+					} else if (check[itemPlaceInList] == true) {
+						check[itemPlaceInList] = false;
+						itemOutOfBasket.setBounds(350, 170, 40, 40);
+						myShoppingListPanel.add(itemOutOfBasket);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								2);
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								- myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+					}
+
+					break;
+				case 1:
+
+					if (check[itemPlaceInList] == false) {
+						itemChecked.setBounds(350, 210, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 2);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								0);
+						check[itemPlaceInList] = true;
+						if (checkIfNew[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == false) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice();
+						}
+						alreadyCalled[itemPlaceInList] = true;
+					} else if (check[itemPlaceInList] == true) {
+						check[itemPlaceInList] = false;
+						itemOutOfBasket.setBounds(350, 210, 40, 40);
+						myShoppingListPanel.add(itemOutOfBasket);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								2);
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								- myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+
+					}
+					break;
+				case 2:
+					if (check[itemPlaceInList] == false) {
+						itemChecked.setBounds(350, 250, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 2);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								0);
+						check[itemPlaceInList] = true;
+						if (checkIfNew[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == false) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice();
+						}
+						alreadyCalled[itemPlaceInList] = true;
+					} else if (check[itemPlaceInList] == true) {
+						check[itemPlaceInList] = false;
+
+						itemOutOfBasket.setBounds(350, 250, 40, 40);
+						myShoppingListPanel.add(itemOutOfBasket);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								2);
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								- myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+					}
+					break;
+				case 3:
+					if (check[itemPlaceInList] == false) {
+						itemChecked.setBounds(350, 290, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 2);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								0);
+						check[itemPlaceInList] = true;
+						if (checkIfNew[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == false) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice();
+						}
+						alreadyCalled[itemPlaceInList] = true;
+					} else if (check[itemPlaceInList] == true) {
+						check[itemPlaceInList] = false;
+						itemOutOfBasket.setBounds(350, 290, 40, 40);
+						myShoppingListPanel.add(itemOutOfBasket);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								2);
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								- myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+					}
+					break;
+				case 4:
+					if (check[itemPlaceInList] == false) {
+						itemChecked.setBounds(350, 330, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 2);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								0);
+						check[itemPlaceInList] = true;
+						if (checkIfNew[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == false) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice();
+						}
+						alreadyCalled[itemPlaceInList] = true;
+
+					} else if (check[itemPlaceInList] == true) {
+						check[itemPlaceInList] = false;
+
+						itemOutOfBasket.setBounds(350, 330, 40, 40);
+						myShoppingListPanel.add(itemOutOfBasket);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								2);
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								- myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+					}
+					break;
+				case 5:
+					if (check[itemPlaceInList] == false) {
+						itemChecked.setBounds(350, 370, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 2);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								0);
+
+						check[itemPlaceInList] = true;
+						if (checkIfNew[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == false) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice();
+						}
+						alreadyCalled[itemPlaceInList] = true;
+					} else if (check[itemPlaceInList] == true) {
+						check[itemPlaceInList] = false;
+
+						itemOutOfBasket.setBounds(350, 370, 40, 40);
+						myShoppingListPanel.add(itemOutOfBasket);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								2);
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								- myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+					}
+					break;
+				case 6:
+
+					if (check[itemPlaceInList] == false) {
+						itemChecked.setBounds(350, 410, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						check[itemPlaceInList] = true;
+						myShoppingListPanel.setComponentZOrder(itemChecked, 2);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								0);
+						if (checkIfNew[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == true) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice()
+									+ myShoppingList.getShoppingList()
+											.get(itemPlaceInList).getPrice();
+						} else if (checkIfNew[itemPlaceInList] == false
+								&& alreadyCalled[itemPlaceInList] == false) {
+							overAllPrice = myShoppingList
+									.getCurrentOverallPrice();
+						}
+						alreadyCalled[itemPlaceInList] = true;
+					} else if (check[itemPlaceInList] == true) {
+						check[itemPlaceInList] = false;
+						itemOutOfBasket.setBounds(350, 410, 40, 40);
+						myShoppingListPanel.add(itemOutOfBasket);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 0);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								2);
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								- myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+					}
+					break;
+				}
+
+				overAllPrice = Math.round(overAllPrice * 1000) / 1000.0; // round
+				// to
+				// 2
+				// decimal
+				// places
+
+myShoppingListPanel.totalPrice
+.setText(String.valueOf(overAllPrice));
+myShoppingList.setCurrentOverallPrice(overAllPrice);
+			}
+
+			if (itemInList == false && !(item.contains("checkout"))) {
 
 				for (int i = 0; i < myShoppingList.getShoppingList().size(); i++) {
 
@@ -316,116 +476,149 @@ public class XMLRPCServer {
 				switch (shoppingListlength) {
 				case 0:
 					if (check[itemPlaceInList] == false) {
-					newItemLabelName.setBounds(38, 187, 150, 23);
-					myShoppingListPanel.add(newItemLabelName);
+						newItemLabelName.setBounds(38, 187, 150, 23);
+						myShoppingListPanel.add(newItemLabelName);
 
-					newItemLabelPrice.setBounds(300, 187, 150, 23);
-					myShoppingListPanel.add(newItemLabelPrice);
+						newItemLabelPrice.setBounds(300, 187, 150, 23);
+						myShoppingListPanel.add(newItemLabelPrice);
 
-					
-					itemChecked.setBounds(350, 170, 40, 40);
-					myShoppingListPanel.add(itemChecked);
-					myShoppingListPanel.setComponentZOrder(itemChecked, 2);
-					myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
-							0);
-					check[itemPlaceInList] = true;
-					} 					
+						itemChecked.setBounds(350, 170, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 2);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								0);
+						check[itemPlaceInList] = true;
+
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								+ myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+
+						checkIfNew[itemPlaceInList] = true;
+					}
 					break;
 				case 1:
 					if (check[itemPlaceInList] == false) {
-					newItemLabelName.setBounds(38, 227, 150, 23);
-					myShoppingListPanel.add(newItemLabelName);
+						newItemLabelName.setBounds(38, 227, 150, 23);
+						myShoppingListPanel.add(newItemLabelName);
 
-					newItemLabelPrice.setBounds(300, 227, 150, 23);
-					myShoppingListPanel.add(newItemLabelPrice);
+						newItemLabelPrice.setBounds(300, 227, 150, 23);
+						myShoppingListPanel.add(newItemLabelPrice);
 
-					itemChecked.setBounds(350, 210, 40, 40);
-					myShoppingListPanel.add(itemChecked);
-					check[itemPlaceInList] = true;
+						itemChecked.setBounds(350, 210, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						check[itemPlaceInList] = true;
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								+ myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+						checkIfNew[itemPlaceInList] = true;
 					}
 					break;
 				case 2:
 					if (check[itemPlaceInList] == false) {
-					newItemLabelName.setBounds(38, 267, 150, 23);
-					myShoppingListPanel.add(newItemLabelName);
+						newItemLabelName.setBounds(38, 267, 150, 23);
+						myShoppingListPanel.add(newItemLabelName);
 
-					newItemLabelPrice.setBounds(300, 267, 150, 23);
-					myShoppingListPanel.add(newItemLabelPrice);
+						newItemLabelPrice.setBounds(300, 267, 150, 23);
+						myShoppingListPanel.add(newItemLabelPrice);
 
-					itemChecked.setBounds(350, 250, 40, 40);
-					myShoppingListPanel.add(itemChecked);
-					check[itemPlaceInList] = true;
-					} else if (check[itemPlaceInList] == true) {
-						check[itemPlaceInList] = false;
-						itemOutOfBasket.setBounds(350, 250, 40, 40);
-						myShoppingListPanel.add(itemOutOfBasket);
-						myShoppingListPanel.setComponentZOrder(itemChecked, 1);
-						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
-								6);
+						itemChecked.setBounds(350, 250, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						check[itemPlaceInList] = true;
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								+ myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+						checkIfNew[itemPlaceInList] = true;
 					}
 					break;
 				case 3:
 					if (check[itemPlaceInList] == false) {
-					newItemLabelName.setBounds(38, 307, 150, 23);
-					myShoppingListPanel.add(newItemLabelName);
+						newItemLabelName.setBounds(38, 307, 150, 23);
+						myShoppingListPanel.add(newItemLabelName);
 
-					newItemLabelPrice.setBounds(300, 307, 150, 23);
-					myShoppingListPanel.add(newItemLabelPrice);
+						newItemLabelPrice.setBounds(300, 307, 150, 23);
+						myShoppingListPanel.add(newItemLabelPrice);
 
-					itemChecked.setBounds(350, 290, 40, 40);
-					myShoppingListPanel.add(itemChecked);
-					check[itemPlaceInList] = true;
-					} 
+						itemChecked.setBounds(350, 290, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						check[itemPlaceInList] = true;
+
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								+ myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+
+						checkIfNew[itemPlaceInList] = true;
+					}
 					break;
 				case 4:
 					if (check[itemPlaceInList] == false) {
-					newItemLabelName.setBounds(38, 347, 150, 23);
-					myShoppingListPanel.add(newItemLabelName);
+						newItemLabelName.setBounds(38, 347, 150, 23);
+						myShoppingListPanel.add(newItemLabelName);
 
-					newItemLabelPrice.setBounds(300, 347, 150, 23);
-					myShoppingListPanel.add(newItemLabelPrice);
+						newItemLabelPrice.setBounds(300, 347, 150, 23);
+						myShoppingListPanel.add(newItemLabelPrice);
 
-					itemChecked.setBounds(350, 330, 40, 40);
-					myShoppingListPanel.add(itemChecked);
-					myShoppingListPanel.setComponentZOrder(itemChecked, 2);
-					myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
-							0);
-					check[itemPlaceInList] = true;
-
-					} 
+						itemChecked.setBounds(350, 330, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						myShoppingListPanel.setComponentZOrder(itemChecked, 2);
+						myShoppingListPanel.setComponentZOrder(itemOutOfBasket,
+								0);
+						check[itemPlaceInList] = true;
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								+ myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+						checkIfNew[itemPlaceInList] = true;
+					}
 					break;
 				case 5:
 					if (check[itemPlaceInList] == false) {
-					newItemLabelName.setBounds(38, 387, 150, 23);
-					myShoppingListPanel.add(newItemLabelName);
+						newItemLabelName.setBounds(38, 387, 150, 23);
+						myShoppingListPanel.add(newItemLabelName);
 
-					newItemLabelPrice.setBounds(300, 387, 150, 23);
-					myShoppingListPanel.add(newItemLabelPrice);
+						newItemLabelPrice.setBounds(300, 387, 150, 23);
+						myShoppingListPanel.add(newItemLabelPrice);
 
-					itemChecked.setBounds(350, 370, 40, 40);
-					myShoppingListPanel.add(itemChecked);
-					check[itemPlaceInList] = true;
-					} 
+						itemChecked.setBounds(350, 370, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						check[itemPlaceInList] = true;
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								+ myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+						checkIfNew[itemPlaceInList] = true;
+					}
 					break;
 				case 6:
 					if (check[itemPlaceInList] == false) {
 						newItemLabelName.setBounds(38, 427, 150, 23);
-					myShoppingListPanel.add(newItemLabelName);
+						myShoppingListPanel.add(newItemLabelName);
 
-					newItemLabelPrice.setBounds(300, 427, 150, 23);
-					myShoppingListPanel.add(newItemLabelPrice);
+						newItemLabelPrice.setBounds(300, 427, 150, 23);
+						myShoppingListPanel.add(newItemLabelPrice);
 
-					itemChecked.setBounds(350, 410, 40, 40);
-					myShoppingListPanel.add(itemChecked);
-					check[itemPlaceInList] = true;
-					} 					
+						itemChecked.setBounds(350, 410, 40, 40);
+						myShoppingListPanel.add(itemChecked);
+						check[itemPlaceInList] = true;
+						overAllPrice = myShoppingList.getCurrentOverallPrice()
+								+ myShoppingList.getShoppingList()
+										.get(itemPlaceInList).getPrice();
+						checkIfNew[itemPlaceInList] = true;
+					}
 					break;
 				}
 
+				overAllPrice = Math.round(overAllPrice * 1000) / 1000.0; // round
+				// to
+				// 2
+				// decimal
+				// places
+
+myShoppingListPanel.totalPrice
+.setText(String.valueOf(overAllPrice));
+myShoppingList.setCurrentOverallPrice(overAllPrice);
 			}
 
-			itemInList = false;
 
+			
+			itemInList = false;
 
 			return "OK";
 		} else {
